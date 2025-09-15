@@ -23,6 +23,9 @@ class MagasinTest {
                 new Item("Kryptonite", 0, 80), // normalement ne bouge pas
                 new Item("Pass VIP Concert", 13, 10), // quality +1 | si sellIn <= 10: quality +2 | si sellIn <=5: quality+3 | si sellIn=0 : quality =0
                 new Item("Comté", 10, 20), // Comté2
+                new Item ("commonInferior", -5, -5),
+                new Item ("Pass VIP Concert", 4,49),
+                new Item("Kryptonite", -1, 1),
         };
         Magasin app = new Magasin(items);
 
