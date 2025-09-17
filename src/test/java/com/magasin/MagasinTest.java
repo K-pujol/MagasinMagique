@@ -18,7 +18,7 @@ class MagasinTest {
     @Test
     void GoldenMaster() {
 
-        Item[] items = new Item[]{new Item("commonDayTen", 10, 19), // le sellIn et qualité doivent décrémenter de 1 par jour jusqu'a sellIn 0, ensuite qualité décremente de 2
+        Item[] items = new Item[]{new Item("common", 10, 19), // le sellIn et qualité doivent décrémenter de 1 par jour jusqu'a sellIn 0, ensuite qualité décremente de 2
                 new Item("Comté", 10, 40), //  qualité augmente de +1 chaque jour
                 new Item("Kryptonite", 0, 80), // normalement ne bouge pas
                 new Item("Pass VIP Concert", 13, 10), // quality +1 | si sellIn <= 10: quality +2 | si sellIn <=5: quality+3 | si sellIn=0 : quality =0
@@ -31,7 +31,7 @@ class MagasinTest {
 
         for (int i = 0; i < 15; i++) { // boucle commun
             app.updateQuality();
-            System.out.println("Comté | Jour restant péremption :" + app.items[4].sellIn + " Qualité :" + app.items[4].quality);
+            System.out.println("commonInf | -5/-5 | Jour restant péremption :" + app.items[7].sellIn + " Qualité :" + app.items[7].quality);
         }
        // System.out.println("Commun | Jour restant péremption :" + app.items[0].sellIn + " Qualité :" + app.items[0].quality);
 
@@ -71,6 +71,37 @@ class MagasinTest {
         app.updateQuality();
         assertEquals(19, app.items[0].quality);
     }
+
+    @Test
+    void checkIfKryptoIsEqual(){
+
+        Item[] items = new Item[]{new Item("Kryptonite", 0, 80)};
+        Magasin app = new Magasin(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].sellIn);
+        assertEquals(80, app.items[0].quality);
+    }
+
+    @Test
+    void checkIfComteIncrease(){
+        Item[] items = new Item[]{new Item("Comté",15, 20)};
+        Magasin app = new Magasin(items);
+        for (int i = 0; i < 10; i++) {
+            app.updateQuality();
+        }
+
+        assertEquals(5, app.items[0].sellIn);
+        assertEquals(30, app.items[0].quality);
+
+        for (int i = 0; i < 6; i++) {
+            app.updateQuality();
+
+        }
+        assertEquals(-1, app.items[0].sellIn);
+        assertEquals(36, app.items[0].quality);
+    }
+
+
 
 
 }
